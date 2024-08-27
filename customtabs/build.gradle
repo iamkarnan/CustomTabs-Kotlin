@@ -83,6 +83,6 @@ apply from: 'https://raw.githubusercontent.com/LissF/JCenter/master/script.gradl
 
 configurations.all {
     resolutionStrategy {
-        force 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
+        force 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     }
 }
