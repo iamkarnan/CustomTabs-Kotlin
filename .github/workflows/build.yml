@@ -37,3 +37,30 @@ jobs:
 
     - name: Run tests
       run: ./gradlew test
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: Release ${{ github.run_number }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload JAR and POM to Release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/libs/customtabs.jar # Path to your JAR file
+        asset_name: customtabs.jar # Name for the JAR file in the release
+        asset_content_type: application/java-archive
+
+    - name: Upload POM to Release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/libs/customtabs.pom # Path to your POM file
+        asset_name: customtabs.pom # Name for the POM file in the release
+        asset_content_type: application/xml
