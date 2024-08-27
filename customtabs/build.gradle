@@ -1,21 +1,20 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-
 buildscript {
     repositories {
         jcenter()
         maven { url 'https://plugins.gradle.org/m2/' }
         maven { url 'https://maven.google.com' }
-  }
     }
     dependencies {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 28
@@ -27,7 +26,6 @@ android {
         versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -36,12 +34,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'androidx.appcompat:appcompat:1.0.0-rc01'
     api 'androidx.browser:browser:1.0.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-common:2.0.0-rc01'
@@ -53,7 +49,7 @@ repositories {
 }
 
 tasks.withType(Javadoc) {
-        enabled = false
+    enabled = false
 }
 
 ext {
@@ -79,6 +75,5 @@ ext {
     licenseUrl = 'https://opensource.org/licenses/MIT'
     allLicenses = ["MIT"]
 }
-
 
 apply from: 'https://raw.githubusercontent.com/LissF/JCenter/master/script.gradle'
