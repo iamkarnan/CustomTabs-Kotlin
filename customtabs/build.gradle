@@ -80,3 +80,9 @@ ext {
 }
 
 apply from: 'https://raw.githubusercontent.com/LissF/JCenter/master/script.gradle'
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
+    }
+}
