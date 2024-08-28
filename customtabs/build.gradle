@@ -99,4 +99,4 @@ ext {
 
 apply from: 'https://raw.githubusercontent.com/LissF/JCenter/master/script.gradle'
 
-tasks.createJar.dependsOn assembleRelease
+tasks.build.dependsOn createJar
