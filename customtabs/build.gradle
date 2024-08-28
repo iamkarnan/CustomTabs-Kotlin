@@ -59,6 +59,13 @@ tasks.withType(Javadoc) {
     enabled = false
 }
 
+task createJar(type: Jar) {
+    // Use output from the `classes` directory instead
+    from fileTree(dir: "$buildDir/intermediates/classes/release", include: ['**/*.class'])
+    baseName = 'customtabs'
+    destinationDir = file("$buildDir/libs")
+}
+
 ext {
     bintrayRepo = 'maven'
     bintrayName = 'CustomTabs-Kotlin'
