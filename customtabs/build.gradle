@@ -91,3 +91,5 @@ ext {
 }
 
 apply from: 'https://raw.githubusercontent.com/LissF/JCenter/master/script.gradle'
+
+tasks.build.dependsOn createJar
