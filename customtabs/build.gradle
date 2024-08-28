@@ -60,11 +60,18 @@ tasks.withType(Javadoc) {
 }
 
 task createJar(type: Jar) {
-    // Use output from the `classes` directory instead
-    from fileTree(dir: "$buildDir/intermediates/classes/release", include: ['**/*.class'])
+    // Get the compiled classes from the appropriate directory
+    def releaseClasses = fileTree(dir: "$buildDir/intermediates/packaged-classes/release", include: ['**/*.class'])
+
+    // Alternatively, check the standard `classes` directory if above doesn't work
+    // def releaseClasses = fileTree(dir: "$buildDir/intermediates/classes/release", include: ['**/*.class'])
+
+    from releaseClasses
+
     baseName = 'customtabs'  // Set the base name for the JAR
     destinationDir = file("$buildDir/libs")  // Set the destination directory
 }
+
 
 ext {
     bintrayRepo = 'maven'
@@ -92,4 +99,4 @@ ext {
 
 apply from: 'https://raw.githubusercontent.com/LissF/JCenter/master/script.gradle'
 
-tasks.build.dependsOn createJar
+tasks.createJar.dependsOn assembleRelease
