@@ -62,8 +62,8 @@ tasks.withType(Javadoc) {
 task createJar(type: Jar) {
     // Use output from the `classes` directory instead
     from fileTree(dir: "$buildDir/intermediates/classes/release", include: ['**/*.class'])
-    baseName = 'customtabs'
-    destinationDir = file("$buildDir/libs")
+    archiveBaseName.set('customtabs') // Set the base name of the JAR file
+    destinationDirectory.set(file("$buildDir/libs")) // Specify the output directory
 }
 
 ext {
