@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -19,8 +19,19 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: '8' # Update to the Java version compatible with your project
+        java-version: '8'
         distribution: 'temurin'
+
+    - name: Set up Android SDK
+      uses: reactivecircus/android-sdk-actions@v3
+      with:
+        ndk-version: '27.0.12077973'
+        sdk-packages: 'platforms;android-28'
+
+    - name: Create or update local.properties
+      run: |
+        echo "sdk.dir=${{ env.ANDROID_HOME }}" > local.properties
+        echo "ndk.dir=${{ env.ANDROID_NDK_HOME }}" >> local.properties
 
     - name: Cache Gradle packages
       uses: actions/cache@v3
@@ -34,9 +45,6 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
-
-    - name: Generate Jar
-      run: ./gradlew createJar
 
     - name: Run tests
       run: ./gradlew test
